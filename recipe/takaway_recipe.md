@@ -93,7 +93,7 @@ class Menu
 end
 
 class Dish
-  def initialize(name, price) # name is a string, price is an integer
+  def initialize(name, price) # name and price are both strings
     # @name = name
     # @price = price
   end
@@ -110,7 +110,7 @@ class Dish
     # returns @price in a price format as a string
   end
 
-  def format
+  def format_dish
     # Returns a string of the dish and price
   end
 
@@ -236,11 +236,11 @@ dish.price # => "£8.50"
 
 # Validates the price
 dish = Dish.new("Fennel Pasta", "lots")
-# => throws error "Error: please enter a valid price (e.g., an integer to 2 decimal places)"
+# => throws error "Error: please enter a valid price string"
 
 # Formats the name and price of the dish
 dish = Dish.new("Fennel Pasta", "£9")
-dish.format # => "Fennel Pasta (£9)"
+dish.format_dish # => "Fennel Pasta (£9)"
 
 # MENU
 
