@@ -62,6 +62,10 @@ class Takeaway
     def validate_phone_number(phone_number)
       # validates the number entered
     end
+
+    def calculate_time(current_time)
+      #returns a string of the time in 45 minutes
+    end
   end
 
   def receipt
@@ -158,38 +162,6 @@ menu.add(dish_2)
 takeaway = Takeaway.new(menu)
 takeaway.menu.all = [dish_1, dish_2]
 
-# Adds dishes in menu to order a specific number of times
-menu = Menu.new
-takeaway = Takeaway.new(menu)
-dish_1 = Dish.new("Aubergine Curry", 7.5)
-dish_2 = Dish.new("Fennel Pasta", 9)
-takeaway.menu.add(dish_1)
-takeaway.menu.add(dish_2)
-takeaway.add_to_order(dish_1, 1)
-takeaway.order # => [dish_1]
-takeaway.add_to_order(dish_2, 3)
-takeaway.order # => [dish_1, dish_2, dish_2, dish_2]
-
-# Provides a receipt of order
-menu = Menu.new
-takeaway = Takeaway.new(menu)
-dish_1 = Dish.new("Aubergine Curry", 7.5)
-dish_2 = Dish.new("Fennel Pasta", 9)
-dish_3 = Dish.new("Pad Thai", 8.5)
-takeaway.menu.add(dish_1)
-takeaway.menu.add(dish_2)
-takeaway.menu.add(dish_3)
-takeaway.add_to_order(dish_1, 1)
-takeaway.add_to_order(dish_2, 3)
-takeaway.add_to_order(dish_3, 2)
-takeaway.receipt # => ...
-# "RECEIPT
-# Aubergine Curry (£7.50)
-# Fennel Pasta x3 (£27)
-# Pad Thai x2 (£17)
-# Total = £51.50
-# END"
-
 # Receives the order from the customer
 menu = Menu.new
 takeaway = Takeaway.new(menu)
@@ -224,7 +196,7 @@ takeaway.place_order # => ...
 # END
 # Which dish would you like to choose: 1, 2, or 3?
 # 2
-# Thank you. How many of dish 1 would you like to order?
+# Thank you. How many of dish 2 would you like to order?
 # 2
 # Thank you. Would you like anything else? (y/n)
 # n
@@ -264,9 +236,101 @@ dish = Dish.new("Fennel Pasta", "lots")
 dish = Dish.new("Fennel Pasta", 9)
 dish.format # => "Fennel Pasta (£9)"
 
+# MENU
 
+# Initializes with an empty array
+menu = Many.new
+menu.all # => []
 
+# Adds dishes to menu
+menu = Menu.new
+dish_1 = double :fake_dish
+dish_2 = double :fake_dish
+menu.add(dish_1)
+menu.add(dish_2)
+menu.all # => [dish_1, dish_2]
 
+# Returns all the dishes and prices in order
+menu = Menu.new
+dish_1 = double :fake_dish, format: "Aubergine Curry (£7.50)"
+dish_2 = double :fake_dish, format: "Fennel Pasta (£9)"
+dish_3 = double :fake_dish, format: "Pad Thai (£8.50)"
+menu.add(dish_1)
+menu.add(dish_2)
+menu.add(dish_3)
+menu.prices # => ... 
+# "MENU
+# 1. Aubergine Curry (£7.50)
+# 2. Fennel Pasta (£9)
+# 3. Pad Thai (£8.50)
+# END"
+
+# TAKEAWAY
+
+# Initializes with an instance of menu
+menu = double :fake_menu
+dish_1 = double :fake_dish
+dish_2 = double :fake_dish
+menu.add(dish_1)
+menu.add(dish_2)
+takeaway = Takeaway.new(menu)
+takeaway.menu.all = [dish_1, dish_2]
+
+# Adds dishes in menu to order a specific number of times
+menu = double :fake_menu
+takeaway = Takeaway.new(menu)
+dish_1 = double :fake_dish
+dish_2 = double :fake_dish
+takeaway.menu.add(dish_1)
+takeaway.menu.add(dish_2)
+takeaway.add_to_order(dish_1, 1)
+takeaway.order # => [dish_1]
+takeaway.add_to_order(dish_2, 3)
+takeaway.order # => [dish_1, dish_2, dish_2, dish_2]
+
+# Provides a receipt of order
+menu = double :fake_menu
+takeaway = Takeaway.new(menu)
+dish_1 = double :fake_dish, format: "Aubergine Curry (£7.50)"
+dish_2 = double :fake_dish, format: "Fennel Pasta (£9)"
+dish_3 = double :fake_dish, format: "Pad Thai (£8.50)"
+takeaway.add_to_order(dish_1, 1)
+takeaway.add_to_order(dish_2, 3)
+takeaway.add_to_order(dish_3, 2)
+takeaway.receipt # => ...
+# "RECEIPT
+# Aubergine Curry (£7.50)
+# Fennel Pasta x3 (£27)
+# Pad Thai x2 (£17)
+# Total = £51.50
+# END"
+
+# Receives yes or no answers from the user
+menu = double :fake_menu
+takeaway = Takeaway.new(menu)
+dish_1 = double :fake_dish, format: "Aubergine Curry (£7.50)"
+takeaway.add_to_order(dish_1, 1)
+takeaway.place_order # => ...
+
+# Hello. Would you like to see our menu (y/n)?
+# n
+# Thank you. Please come back another time. 
+
+# validates the phone number of the user
+menu = double :fake_menu
+takeaway = Takeaway.new(menu)
+takeaway.confirm_order(07537393010) # => ...
+"Thank you. Here is your receipt:
+RECEIPT
+Aubergine Curry (£7.50)
+Fennel Pasta x2 (£18)
+Total = £25.50
+END
+A confirmation text message has been sent to 07527393010.
+Your order should arrive before [45 mins from current time]
+Enjoy your order!"
+
+# ... and sends a similarly worded text message to 07527393010
 ```
 
 _Encode each example as a test. You can add to the above list as you go._
