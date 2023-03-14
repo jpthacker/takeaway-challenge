@@ -127,23 +127,23 @@ end
 
 # Adds dishes to menu
 menu = Menu.new
-dish_1 = Dish.new("Aubergine Curry", "£7.50")
-dish_2 = Dish.new("Fennel Pasta", "£9")
+dish_1 = Dish.new("Aubergine Curry", 7.5)
+dish_2 = Dish.new("Fennel Pasta", 9)
 menu.add(dish_1)
 menu.add(dish_2)
 menu.all # => [dish_1, dish_2]
 
 # Returns all the dishes and prices in order
 menu = Menu.new
-dish_1 = Dish.new("Aubergine Curry", "£7.50")
-dish_2 = Dish.new("Fennel Pasta", "£9")
-dish_3 = Dish.new("Pad Thai", "£8.50")
+dish_1 = Dish.new("Aubergine Curry", 7.5)
+dish_2 = Dish.new("Fennel Pasta", 9)
+dish_3 = Dish.new("Pad Thai", 8.5)
 menu.add(dish_1)
 menu.add(dish_2)
 menu.add(dish_3)
 menu.format_menu # => ... 
 # "MENU
-# 1. Aubergine Curry (£"£7.50"0)
+# 1. Aubergine Curry (£7.50)
 # 2. Fennel Pasta (£9)
 # 3. Pad Thai (£8.50)
 # END"
@@ -152,8 +152,8 @@ menu.format_menu # => ...
 
 # Initializes with an instance of menu
 menu = Menu.new
-dish_1 = Dish.new("Aubergine Curry", "£7.50")
-dish_2 = Dish.new("Fennel Pasta", "£9")
+dish_1 = Dish.new("Aubergine Curry", 7.5)
+dish_2 = Dish.new("Fennel Pasta", 9)
 menu.add(dish_1)
 menu.add(dish_2)
 takeaway = Takeaway.new(menu)
@@ -162,9 +162,9 @@ takeaway.menu.all = [dish_1, dish_2]
 # Receives the order from the customer
 menu = Menu.new
 takeaway = Takeaway.new(menu)
-dish_1 = Dish.new("Aubergine Curry", "£7.50")
-dish_2 = Dish.new("Fennel Pasta", "£9")
-dish_3 = Dish.new("Pad Thai", "£8.50")
+dish_1 = Dish.new("Aubergine Curry", 7.5)
+dish_2 = Dish.new("Fennel Pasta", 9)
+dish_3 = Dish.new("Pad Thai", 8.5)
 takeaway.menu.add(dish_1)
 takeaway.menu.add(dish_2)
 takeaway.menu.add(dish_3)
@@ -176,7 +176,7 @@ takeaway.place_order # => ...
 # Hello. Would you like to see our menu (y/n)?
 # y
 # MENU
-# 1. Aubergine Curry (£"£7.50"0)
+# 1. Aubergine Curry (£7.50)
 # 2. Fennel Pasta (£9)
 # 3. Pad Thai (£8.50)
 # END
@@ -187,7 +187,7 @@ takeaway.place_order # => ...
 # Thank you. Would you like anything else? (y/n)
 # y
 # MENU
-# 1. Aubergine Curry (£"£7.50"0)
+# 1. Aubergine Curry (£7.50)
 # 2. Fennel Pasta (£9)
 # 3. Pad Thai (£8.50)
 # END
@@ -201,7 +201,7 @@ takeaway.place_order # => ...
 # 07527393010
 # Thank you. Here is your receipt:
 # RECEIPT
-# Aubergine Curry (£"£7.50"0)
+# Aubergine Curry (£7.50)
 # Fennel Pasta x2 (£18)
 # Total = £25.50
 # END
@@ -215,17 +215,17 @@ takeaway.place_order # => ...
 # DISH
 
 # Constructs a dish
-dish = Dish.new("Aubergine Curry", "£7.50")
+dish = Dish.new("Aubergine Curry", 7.5)
 dish.name # => "Aubergine Curry"
 
 # Returns the name of the dish
-dish = Dish.new("Pad Thai", "£8.50")
-dish.price # => "£"£7.50"0"
+dish = Dish.new("Pad Thai", 8.5)
+dish.price # => "£7.50"
 
 # Returns the price in the correct format
-dish = Dish.new("Aubergine Curry", "£7.50")
-dish.price # => "£"£7.50"0"
-dish = Dish.new("Pad Thai", "£8.50")
+dish = Dish.new("Aubergine Curry", 7.5)
+dish.price # => "£7.50"
+dish = Dish.new("Pad Thai", 8.5)
 dish.price # => "£8.50"
 
 # Validates the price
@@ -233,7 +233,7 @@ dish = Dish.new("Fennel Pasta", "lots")
 # => throws error "Error: please enter a valid price string"
 
 # Formats the name and price of the dish
-dish = Dish.new("Fennel Pasta", "£9")
+dish = Dish.new("Fennel Pasta", 9)
 dish.format_dish # => "Fennel Pasta (£9)"
 
 # MENU

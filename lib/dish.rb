@@ -12,12 +12,14 @@ class Dish
     end
 
     def price
-        return @price if @price.is_a?(String) && @price.match?(/\p{Sc}/) && @price.gsub(/\p{Sc}/, "").to_f > 0
-        fail "Error: please enter a valid price string"
+        if @price.to_i > 0
+            return "£#{"%.2f" % @price}"
+        else
+            fail "Error: please enter a valid price (e.g. an integer)"
+        end
     end
 
     def format_dish
-        "Fennel Pasta (£9)"
-        "#{@name} (#{@price})"
+        "#{@name} (#{price})"
     end
 end
