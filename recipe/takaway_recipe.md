@@ -87,7 +87,7 @@ class Menu
     # Returns @menu
   end
 
-  def prices
+  def format_menu
     # Returns the title and price of every dish in the menu in a readable format
   end
 end
@@ -122,9 +122,6 @@ end
 
 ## 3. Examples as Integration Tests
 
-_Create examples of the classes being used together in different situations and
-combinations that reflect the ways in which the system will be used._
-
 ```ruby
 # MENU
 
@@ -144,7 +141,7 @@ dish_3 = Dish.new("Pad Thai", "£8.50")
 menu.add(dish_1)
 menu.add(dish_2)
 menu.add(dish_3)
-menu.prices # => ... 
+menu.format_menu # => ... 
 # "MENU
 # 1. Aubergine Curry (£"£7.50"0)
 # 2. Fennel Pasta (£9)
@@ -214,9 +211,6 @@ takeaway.place_order # => ...
 
 ## 4. Examples as Unit Tests
 
-_Create examples, where appropriate, of the behaviour of each relevant class at
-a more granular level of detail._
-
 ```ruby
 # DISH
 
@@ -264,7 +258,7 @@ dish_3 = double :fake_dish, format: "Pad Thai (£8.50)"
 menu.add(dish_1)
 menu.add(dish_2)
 menu.add(dish_3)
-menu.prices # => ... 
+menu.format_menu # => ... 
 # "MENU
 # 1. Aubergine Curry (£7.50)
 # 2. Fennel Pasta (£9)
@@ -274,13 +268,9 @@ menu.prices # => ...
 # TAKEAWAY
 
 # Initializes with an instance of menu
-menu = double :fake_menu
-dish_1 = double :fake_dish
-dish_2 = double :fake_dish
-menu.add(dish_1)
-menu.add(dish_2)
+menu = double :fake_menu, all: [1, 2]
 takeaway = Takeaway.new(menu)
-takeaway.menu.all = [dish_1, dish_2]
+takeaway.menu.all # => [1, 2]
 
 # Adds dishes in menu to order a specific number of times
 menu = double :fake_menu
