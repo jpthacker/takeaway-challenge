@@ -13,17 +13,17 @@ RSpec.describe Dish do
 
     it "validates and returns the price" do
         dish = Dish.new("Aubergine Curry", 7.5)
-        expect(dish.price).to eq "£7.50"
+        expect(dish.format_price).to eq "£7.50"
         dish = Dish.new("Pad Thai", 8.5)
-        expect(dish.price).to eq "£8.50"
+        expect(dish.format_price).to eq "£8.50"
     end
 
     context "when an invalid string is passed as an argument for price" do
         it "fails" do
             dish = Dish.new("Fennel Pasta", "six")
-            expect{ dish.price }.to raise_error "Error: please enter a valid price (e.g. an integer)"
+            expect{ dish.format_price }.to raise_error "Error: please enter a valid price (e.g. an integer)"
             dish = Dish.new("Fennel Pasta", "£7.50")
-            expect{ dish.price }.to raise_error "Error: please enter a valid price (e.g. an integer)"
+            expect{ dish.format_price }.to raise_error "Error: please enter a valid price (e.g. an integer)"
         end
     end
 

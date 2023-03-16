@@ -6,12 +6,13 @@ class Dish
         @name = name
         @price = price
     end
+    attr_accessor :price
 
     def name
         @name
     end
 
-    def price
+    def format_price
         if @price.to_i > 0
             return "£#{"%.2f" % @price}"
         else
@@ -20,6 +21,6 @@ class Dish
     end
 
     def format_dish
-        "#{@name} (#{price})"
+        "#{@name} (#{format_price})"
     end
 end
