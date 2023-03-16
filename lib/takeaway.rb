@@ -1,4 +1,6 @@
 require_relative "sms.rb"
+Bundler.require()
+require("bundler")
 
 class Takeaway
     def initialize(menu, io)
@@ -19,6 +21,38 @@ class Takeaway
         end
     end
 
+    def place_order
+        @io.puts "Hello. Would you like to see our menu (y/n)?"
+        @input = @io.gets.chomp
+        puts @input
+        if @input == "n"
+            @io.puts "Thank you. Please come back another time."
+        else
+            @io.puts menu.format_menu
+            @io.puts "Which dish would you like to choose? Please enter the dish number."
+            @input = @io.gets.chomp
+            while @input != "n"
+                if @input == "y"
+                    @io.puts menu.format_menu
+                    @io.puts "Which dish would you like to choose? Please enter the dish number."
+                    @input = @io.gets.chomp
+                else
+                    dish = @input.to_i
+                    @io.puts "Thank you. How many of dish #{@input} would you like to order?"
+                    @input = @io.gets.chomp
+                    amount = @input.to_i
+                    add_to_order(dish, amount)
+                    @io.puts "Thank you. Would you like anything else? (y/n)"
+                    @input = @io.gets.chomp
+                end
+            end
+            @io.puts "Thank you. Please enter your phone number:"
+            @input = @io.gets.chomp
+            user_phone_number = @input
+            @io.puts confirm_order(user_phone_number)
+        end
+    end
+
     def receipt
         @total_cost = 0
         def itemised_receipt
@@ -35,20 +69,17 @@ class Takeaway
         "RECEIPT\n#{itemised_receipt}Total = #{format_price(@total_cost)}\nEND"
     end
 
-    def place_order
-        @io.puts "Hello. Would you like to see our menu (y/n)?"
-        input = @io.gets.chomp
-        @io.puts "Thank you. Please come back another time."
-    end
-
     def confirm_order(user_phone_number)
-        # sms = SMS.new(Twilio::REST::Client)
-        # sms.send(user_phone_number, get_time)
+        response = (
 "Thank you. Here is your receipt:
 #{receipt}
 A confirmation text message has been sent to #{validate_phone_number(user_phone_number)}.
 Your order should arrive before #{get_time}
 Enjoy your order!"
+        )
+sms = SMS.new(Twilio::REST::Client)
+sms.send(user_phone_number, get_time)
+        return response
     end
 
     private 
@@ -71,4 +102,4 @@ Enjoy your order!"
 end
 
 # takeaway = Takeaway.new("menu", Kernel)
-# takeaway.confirm_order("07527393010")
+# takeaway.place_order

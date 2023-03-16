@@ -88,6 +88,8 @@ class Takeaway
 end
 
 class SMS
+  def initialize(twilio_rest_client) # Twilio rest client is Twilio Twilio::REST::Client
+  end
   def send(user_phone_number, time_estimate) # user_phone_numnber and time_estimate are both strings
   # Uses the twilio api to send an SMS to user_phone_number with an estimated time of delivery
   end

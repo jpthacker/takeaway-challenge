@@ -58,12 +58,12 @@ RSpec.describe Takeaway do
             menu = double :fake_menu, all: [dish_1]
             takeaway = Takeaway.new(menu, Kernel)
             takeaway.add_to_order(1, 1)
-            my_number = "07527393020"
+            my_number = "07527393010"
             Timecop.freeze(Time.new(2023, 03, 15)) do
                 expect(takeaway.confirm_order(my_number)).to eq (
 "Thank you. Here is your receipt:
 #{takeaway.receipt}
-A confirmation text message has been sent to 07527393020.
+A confirmation text message has been sent to 07527393010.
 Your order should arrive before 00:45
 Enjoy your order!"
 )
