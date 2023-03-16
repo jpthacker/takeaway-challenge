@@ -1,4 +1,4 @@
-require_relative "send_sms.rb"
+require_relative "sms.rb"
 
 class Takeaway
     def initialize(menu, io)
@@ -42,7 +42,7 @@ class Takeaway
     end
 
     def confirm_order(user_phone_number)
-        # sms = SMS.new
+        # sms = SMS.new(Twilio::REST::Client)
         # sms.send(user_phone_number, get_time)
 "Thank you. Here is your receipt:
 #{receipt}
@@ -70,5 +70,5 @@ Enjoy your order!"
     end
 end
 
-takeaway = Takeaway.new("menu", Kernel)
-takeaway.confirm_order("07527393010")
+# takeaway = Takeaway.new("menu", Kernel)
+# takeaway.confirm_order("07527393010")

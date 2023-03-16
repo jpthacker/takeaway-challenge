@@ -4,11 +4,14 @@ Dotenv.load("twilio_info.env")
 Bundler.require()
 
 class SMS
+    def initialize(twilio_rest_client)
+        @twilio_rest_client = twilio_rest_client
+    end
     def send(user_phone_number, time_estimate)
         account_sid = ENV["TWILIO_ACC_SID"]
         auth_token = ENV["TWILIO_AUTH_TOKEN"]
 
-        @client = Twilio::REST::Client.new(account_sid, auth_token)
+        @client = @twilio_rest_client.new(account_sid, auth_token)
 
         @client.messages.create(
             from: "+15076154403",
@@ -17,3 +20,5 @@ class SMS
         )
     end
 end
+
+# Twilio::REST::Client

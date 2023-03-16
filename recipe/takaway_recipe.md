@@ -333,7 +333,7 @@ takeaway.place_order # => ...
 # n
 # Thank you. Please come back another time.
 
-# returns a confirmation message
+# Returns a confirmation message
 menu = double :fake_menu
 takeaway = Takeaway.new(menu)
 my_number = "o7527393010"
@@ -385,18 +385,10 @@ A confirmation text message has been sent to 07527393020.
 Your order should arrive before [45 mins from current time]
 Enjoy your order!"
 
-# ... and sends a text message to user's number
-it "calculates the estimated delivery time" do
-dish_1 =
-double :fake_dish, format_dish: "Aubergine Curry (£7.50)", price: 7.5
-menu = double :fake_menu, all: [dish_1]
-takeaway = Takeaway.new(menu, Kernel)
-takeaway.add_to_order(1, 1)
-my_number = "07527393020"
+# SMS
 
-
-
-Timecop.freeze(Time.new(2023, 03, 15)) do
-
-end
+# Sends a text message to user's number
+sms = SMS.new
+sms.send("07527393010", "10:45") # => returns following message
+"Sent from your Twilio trial account - Thank you for ordering with us. Your order should be with you before 10:45"
 ```
